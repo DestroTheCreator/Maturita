@@ -1,0 +1,6 @@
+10;0;sturovo nam.
+5;0;Mestsky park
+50;1;Dargovska
+2;0;Nemocnica
+10;3;Bratska
+1;1;Mestsky urad

@@ -1,0 +1,8 @@
+obdlznik
+rectangle
+stvorec
+square
+trojuholnik
+triangle
+ciara
+line

@@ -1,0 +1,16 @@
+Titanic;Leonardo diCaprio; 11726  5478  8213  8563
+Rain Man;Dustin Hoffman;  9469 11407 11073 10688
+Forest Gump;Tom Hanks;  7859 10384 11028 11504
+Rambo;Silvester Stallone;  7705 11241 11425 11001
+Muz so zeleznou maskou;Leonardo diCaprio;  7487 11300  7767  8375
+Pretty woman;Julie Roberts; 11819  5014  9448 10495
+Piano;Holly Hunter;  6809  9065 10816 11047
+Mlcanie jahniat;Jack Nicholson;  5891  5823  9033  7653
+Siet;Sandra Bullock;  5447  9806  6935  6962
+Basic instinct;Sharon Stone;  6321  8529 10832 11474
+Smrtiaca epidemia;Dustin Hoffman;  7028  6878  6962 11630
+Blazniva strela;Charlie Sheen;  9255  6916  7055  8422
+Smrtonostna pasca;Bruce Willis;  7965  8740 10195  9541
+Votrelec;Sigourney Weaver; 10204  7791  9948  6826
+Piaty element;Bruce Willis;  9414  7768  9460  7536
+Tak dobre ako sa len da;Jack Nicholson; 11854  7010  8956 11707
