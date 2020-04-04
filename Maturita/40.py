@@ -4,143 +4,113 @@ import re
 cisla = re.findall(r'\d+',f)
 cisla = [int(i)for i in cisla]
 
-#print(int(len(cisla))-int(cisla.count(0)))
+
 
 import numpy as np 
-cisla = (np.reshape(cisla,(9,10))).tolist()
-#print(cisla)
+grid = (np.reshape(cisla,(9,10))).tolist()
 
 
-maxx = 0
-counter = 0
+
+
+lst = []
+
+import time
+
+class island:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        self.area = 0
+    
+    def expanse(self):
+        global grid, lst
+        up = True
+        down = True
+        right = True
+        left = True
+        next = []
+        #first tile
+        if (str(self.x)+'_'+str(self.y)) not in lst:
+            a = 0
+            self.area += 1
+            next.append(self.x)
+            next.append(self.y)
+            next_copy = next
+            while True:
+                for i in range(len(next_copy)//2):
+                    next = []
+                    self.x = next_copy[i*2]
+                    self.y = next_copy[2*i+1]
+                    if (str(self.x)+'_'+str(self.y)) not in lst:
+                        lst.append(str(self.x)+'_'+str(self.y))
+                        #check ci moze do stran
+                        if self.y == 0:
+                            right = False
+                        if self.y == len(grid[0])-1:
+                            left = False
+                        if self.x == 0:
+                            up = False
+                        if self.x == len(grid)-1:
+                            down = False
+                        print(lst)
+
+                        #Getting next 4 tiles
+                        if left:
+                            if grid[self.x][self.y-1] != 0 and (str(self.x)+'_'+str(self.y-1)) not in lst:
+                                next.append(self.x)
+                                next.append(self.y-1)
+                                self.area += 1
+                        if right:
+                            if grid[self.x][self.y+1] != 0 and (str(self.x)+'_'+str(self.y+1)) not in lst:
+                                next.append(self.x)
+                                next.append(self.y+1)
+                                self.area += 1
+                        if up:
+                            if grid[self.x-1][self.y] != 0 and (str(self.x-1)+'_'+str(self.y)) not in lst:
+                                next.append(self.x-1)
+                                next.append(self.y)
+                                self.area += 1
+                        if down:
+                            if grid[self.x+1][self.y] != 0 and (str(self.x+1)+'_'+str(self.y)) not in lst:
+                                next.append(self.x+1)
+                                next.append(self.y)
+                                self.area += 1
+                        
+                    time.sleep(1)
+                next_copy = next
+                print(self.area,'\nnext:',next_copy)
+                if a == self.area:
+                    break
+                else:
+                    a = self.area
+        
+
+
+for row in range(len(grid)):
+    for element in range(len(grid[row])):
+        if grid[row][element] != 0:
+            isle = island(row,element)
+            isle.expanse()
+            print('-------------')
+
+
+
 from tkinter import *
 
 root = Tk()
 
-sirka = root.winfo_screenwidth()
-vyska = root.winfo_screenheight()
+canvas = Canvas(root,bg = 'gray',height = 400,width = 400)
+canvas.place(x = -2,y = -2)
 
-canvas = Canvas(root , width = sirka , height = vyska, bg = 'gray')
-canvas.place(x = -2 , y = -2)
-root.attributes("-fullscreen",True)
 
-ex = Button(root,text = 'EXIT',command = root.destroy)
-ex.place(x = 0, y = 0)
+for i in range(len(grid)):
+    for j in range(len(grid[i])):
+        if grid[i][j] == 0:
+            color = 'blue'
+        else:
+            color = 'green'
+        canvas.create_rectangle(50 + 20*j,50 + 20*i,50 + 20*j+20,50 + 20*i+20,fill=color)
 
-def draw():
-    size = 40
-    for i in range(len(cisla)):
-        for ii in range(len(cisla[i])):
-            if cisla[i][ii] == 0:
-                canvas.create_rectangle(100+size*ii,100+size*i,100+size+size*ii,100+size+size*i,fill = 'blue')
-            else:
-                canvas.create_rectangle(100+size*ii,100+size*i,100+size+size*ii,100+size+size*i,fill = 'darkgreen')
 
-draw()
 
 mainloop()
-count = 0
-velkosti = []
-pouzite = []
-def ostrov(array):
-    global count,pouzite
-    pouzite = []
-    for i in range(len(array)):
-        for j in range(len(array[0])):
-            if array[i][j] != 0 and ((str(i)+'-'+str(j)) not in pouzite):
-                count += 1
-                pouzite.append(str(i)+'-'+str(j))
-                try:
-                    a = array[i][j-1]
-                    aa = str(i)+'-'+str(j-1)
-                except IndexError:
-                    continue
-                try:
-                    b = array[i][j+1]
-                    bb = str(i)+'-'+str(j+1)
-                except IndexError:
-                    continue
-                try:
-                    c = array[i-1][j]
-                    cc = str(i-1)+'-'+str(j)
-                except IndexError:
-                    continue
-                try:
-                    d = array[i+1][j]
-                    dd = str(i+1)+'-'+str(j)
-                except IndexError:
-                    continue
-                vedlajsie = []
-                vedl_sur = []
-                try:
-                        
-                    if a != 0:
-                        vedlajsie.append(a)
-                        aa = str(i)+'-'+str(j-1)
-                        vedl_sur.append(aa)
-                        count+=1
-                    if b != 0:
-                        vedlajsie.append(b)
-                        bb = str(i)+'-'+str(j+1)
-                        vedl_sur.append(bb)
-                        count+=1
-                    if c != 0:
-                        vedlajsie.append(c)
-                        cc = str(i-1)+'-'+str(j)
-                        vedl_sur.append(cc)
-                        count+=1
-                    if d != 0:
-                        vedlajsie.append(d)
-                        dd = str(i+1)+'-'+str(j)
-                        vedl_sur.append(dd)
-                        count+=1
-                    helpcount = len(vedlajsie)
-                    print(vedlajsie,vedl_sur)
-                    '''while True:
-                        if helpcount == 0:
-                            break
-                        for iksde in range(helpcount):
-                            if (str(i)+'-'+str(j)) not in pouzite:
-                                if a != 0:
-                                    vedlajsie.append(a)
-                                    aa = str(i)+'-'+str(j-1)
-                                    count+=1
-                                    helpcount += 1
-                                if b != 0:
-                                    vedlajsie.append(b)
-                                    bb = str(i)+'-'+str(j+1)
-                                    count+=1
-                                    helpcount += 1
-                                if c != 0:
-                                    vedlajsie.append(c)
-                                    cc = str(i-1)+'-'+str(j)
-                                    count+=1
-                                    helpcount += 1
-                                if d != 0:
-                                    vedlajsie.append(d)
-                                    dd = str(i+1)+'-'+str(j)
-                                    count+=1  
-                                    helpcount += 1
-                                    '''
-                             
-
-            
-
-                        
-                except IndexError:
-                    pass
-
-
-
-
-
-
-
-ostrov(cisla)
-
-
-
-
-
-
-print(pouzite)
