@@ -54,7 +54,7 @@ class island:
                             down = False
                         print(lst)
 
-                        #Getting next 4 tiles
+                        #4 okolo tile
                         if left:
                             if grid[self.x][self.y-1] != 0 and (str(self.x)+'_'+str(self.y-1)) not in lst:
                                 next.append(self.x)
